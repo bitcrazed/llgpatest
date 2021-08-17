@@ -5,7 +5,7 @@
 // TESTDLL_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
 #ifdef TESTDLL_EXPORTS
-#define TESTDLL_API __declspec(dllexport)
+#define TESTDLL_API extern "C" __declspec(dllexport)
 #else
 #define TESTDLL_API __declspec(dllimport)
 #endif

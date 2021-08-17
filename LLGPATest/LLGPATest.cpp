@@ -18,17 +18,28 @@ int main()
     {
         wcout << L"SUCCESS!" << endl;
         
-        PSAYHELLOFN pfn = (PSAYHELLOFN)GetProcAddress(hLib, "?SayHello@@YAHPEA_W_K@Z");
+        //string szProcName{ "?SayHello@@YAHPEA_W_K@Z" };
+        string szProcName{ "SayHello" };
+
+        wcout << L"Finding address of \"" << szProcName.c_str() << "\" ... ";
+
+        PSAYHELLOFN pfn = (PSAYHELLOFN)GetProcAddress(hLib, szProcName.c_str());
         if (pfn != NULL)
         {
-            wcout << L"SUCCESS!";
+            wcout << L"SUCCESS!" << endl;
+
+            wcout << L"Executing \"" << szProcName.c_str() << "\":" << endl;
 
             const int NUMCHARS = 512;
             wchar_t msg[NUMCHARS]{};
 
             pfn(msg, NUMCHARS-1);
 
-            wcout << L" Greeting: \"" << msg << "\"" << endl;
+            wcout << L"SUCCESS! Result = \"" << msg << "\"" << endl;
+        }
+        else
+        {
+            wcout << L"FAILED!" << endl;
         }
     }
     else
